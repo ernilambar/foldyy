@@ -15,7 +15,7 @@ composer install
 ## Usage
 
 ```bash
-# Basic usage (text output)
+# Basic usage (saves HTML to temp directory)
 ./bin/foldyy /path/to/folder
 
 # With maximum depth limit
@@ -24,36 +24,46 @@ composer install
 # Without size information
 ./bin/foldyy /path/to/folder --no-sizes
 
-# Generate HTML output with collapsible folders
-./bin/foldyy /path/to/folder --html
+# Specify output directory (defaults to temp directory)
+./bin/foldyy /path/to/folder --output-dir /tmp
 
-# Generate HTML and save to file
-./bin/foldyy /path/to/folder --html --output tree.html
+# Specify exact output file path
+./bin/foldyy /path/to/folder --output tree.html
+
+# Output only the file path (porcelain mode)
+./bin/foldyy /path/to/folder --output-dir /tmp --porcelain
 ```
 
 ## Examples
 
 ```bash
-# Display tree of current directory
+# Generate HTML tree of current directory (saved to temp directory)
 ./bin/foldyy .
 
-# Display tree with depth limit of 3
+# Generate HTML with depth limit of 3
 ./bin/foldyy /var/www --max-depth 3
 
-# Display tree without sizes
+# Generate HTML without sizes
 ./bin/foldyy /path/to/folder --no-sizes
 
-# Generate HTML with collapsible folders
-./bin/foldyy /path/to/folder --html --output folder-tree.html
+# Save HTML to specific directory
+./bin/foldyy /path/to/folder --output-dir /tmp
+
+# Save HTML to specific file
+./bin/foldyy /path/to/folder --output folder-tree.html
+
+# Get only the file path (useful for scripting)
+./bin/foldyy /path/to/folder --output-dir /tmp --porcelain
 ```
 
 ## Features
 
-- **Text Tree View**: Display folder structure in terminal with ASCII tree format
-- **HTML Tree View**: Generate interactive HTML with collapsible folders (like the original yantra project)
+- **HTML Tree View**: Generate interactive HTML with collapsible folders
 - **Size Information**: Show file and folder sizes in human-readable format
 - **Depth Control**: Limit the maximum depth of folder scanning
-- **Collapsible Folders**: In HTML mode, click folders to expand/collapse (just like the source project)
+- **Collapsible Folders**: Click folders to expand/collapse
+- **Flexible Output**: Save to temp directory, custom directory, or specific file
+- **Porcelain Mode**: Output only file path for easy parsing in scripts
 
 ## Development
 
@@ -105,7 +115,6 @@ The test suite includes:
   - Error handling for invalid paths
 
 - **FoldyyServiceTest**: Tests for the main service class
-  - Text tree generation
   - HTML tree generation
   - Size display options
   - Max depth functionality
