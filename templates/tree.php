@@ -150,6 +150,7 @@
 		.tree-toggle-placeholder {
 			width: 20px;
 			display: inline-block;
+			margin-right: 4px;
 		}
 
 		.tree-icon {
@@ -158,6 +159,16 @@
 			display: inline-block;
 			width: 20px;
 			text-align: center;
+		}
+
+		.tree-size {
+			color: #666;
+			font-size: 12px;
+			white-space: nowrap;
+			margin-right: 10px;
+			width: 80px;
+			display: inline-block;
+			text-align: right;
 		}
 
 		.tree-name {
@@ -169,13 +180,6 @@
 
 		.tree-item.folder .tree-name {
 			font-weight: 500;
-		}
-
-		.tree-size {
-			color: #666;
-			font-size: 12px;
-			white-space: nowrap;
-			margin-left: auto;
 		}
 
 		.tree-children {
@@ -246,6 +250,9 @@
 									?>
 									<div class="tree-item folder" data-level="<?php echo htmlspecialchars((string) $level, ENT_QUOTES, 'UTF-8'); ?>" data-path="<?php echo htmlspecialchars($item['path'], ENT_QUOTES, 'UTF-8'); ?>">
 										<div class="tree-item-content">
+											<?php if ($show_sizes) : ?>
+												<span class="tree-size"><?php echo htmlspecialchars($item['size_formatted'], ENT_QUOTES, 'UTF-8'); ?></span>
+											<?php endif; ?>
 											<?php if ($has_children) : ?>
 												<button class="tree-toggle" aria-label="Toggle folder" data-target="<?php echo htmlspecialchars($item_id, ENT_QUOTES, 'UTF-8'); ?>">
 													<span class="toggle-icon">▶</span>
@@ -255,9 +262,6 @@
 											<?php endif; ?>
 											<span class="tree-icon"><?php echo $icon; ?></span>
 											<span class="tree-name"><?php echo htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?></span>
-											<?php if ($show_sizes) : ?>
-												<span class="tree-size"><?php echo htmlspecialchars($item['size_formatted'], ENT_QUOTES, 'UTF-8'); ?></span>
-											<?php endif; ?>
 										</div>
 										<?php if ($has_children) : ?>
 											<div class="tree-children" id="<?php echo htmlspecialchars($item_id, ENT_QUOTES, 'UTF-8'); ?>" style="display: none;">
@@ -270,12 +274,12 @@
 									?>
 									<div class="tree-item file" data-level="<?php echo htmlspecialchars((string) $level, ENT_QUOTES, 'UTF-8'); ?>" data-path="<?php echo htmlspecialchars($item['path'], ENT_QUOTES, 'UTF-8'); ?>">
 										<div class="tree-item-content">
-											<span class="tree-toggle-placeholder"></span>
-											<span class="tree-icon"><?php echo $icon; ?></span>
-											<span class="tree-name"><?php echo htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?></span>
 											<?php if ($show_sizes) : ?>
 												<span class="tree-size"><?php echo htmlspecialchars($item['size_formatted'], ENT_QUOTES, 'UTF-8'); ?></span>
 											<?php endif; ?>
+											<span class="tree-toggle-placeholder"></span>
+											<span class="tree-icon"><?php echo $icon; ?></span>
+											<span class="tree-name"><?php echo htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?></span>
 										</div>
 									</div>
 									<?php
