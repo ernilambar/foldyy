@@ -70,12 +70,6 @@
 	<!-- Scope closing brace spacing. -->
 	<rule ref="Squiz.WhiteSpace.ScopeClosingBrace"/>
 
-	<rule ref="PHPCompatibility">
-		<exclude name="PHPCompatibility.FunctionUse.NewFunctions.str_containsFound"/>
-		<exclude name="PHPCompatibility.FunctionUse.NewFunctions.str_starts_withFound"/>
-		<exclude name="PHPCompatibility.FunctionUse.NewFunctions.str_ends_withFound"/>
-	</rule>
-
 	<!-- Disallows grouped use declarations. -->
 	<rule ref="SlevomatCodingStandard.Namespaces.DisallowGroupUse" />
 	<!-- Disallows leading backslash in use statement. -->
@@ -102,8 +96,4 @@
 			<property name="allowFullyQualifiedNameForCollidingClasses" value="true" />
 		</properties>
 	</rule>
-
-	<!-- For help understanding the `testVersion` configuration setting:
-		 https://github.com/PHPCompatibility/PHPCompatibility#sniffing-your-code-for-compatibility-with-specific-php-versions -->
-	<config name="testVersion" value="7.4-"/>
 </ruleset>
