@@ -75,6 +75,34 @@
 			font-weight: 600;
 		}
 
+		.tree-controls {
+			display: flex;
+			gap: 8px;
+			align-items: center;
+		}
+
+		.tree-control-btn {
+			background: #f0f0f0;
+			border: 1px solid #d0d0d0;
+			border-radius: 4px;
+			padding: 4px 10px;
+			font-size: 12px;
+			color: #666;
+			cursor: pointer;
+			transition: all 0.2s;
+			font-family: inherit;
+		}
+
+		.tree-control-btn:hover {
+			background: #e0e0e0;
+			border-color: #b0b0b0;
+			color: #333;
+		}
+
+		.tree-control-btn:active {
+			background: #d0d0d0;
+		}
+
 		/* Main Content */
 		.main {
 			margin-bottom: 30px;
@@ -203,6 +231,11 @@
 				font-size: 20px;
 			}
 
+			.header-info {
+				flex-wrap: wrap;
+				gap: 10px;
+			}
+
 			.tree {
 				font-size: 13px;
 			}
@@ -217,11 +250,15 @@
 	<div class="container">
 		<div class="header">
 			<h1>📁 <?php echo htmlspecialchars($folder_path, ENT_QUOTES, 'UTF-8'); ?></h1>
-			<?php if ($show_sizes) : ?>
 			<div class="header-info">
+				<?php if ($show_sizes) : ?>
 				<span class="total-size">Total Size: <strong><?php echo htmlspecialchars($total_size_formatted, ENT_QUOTES, 'UTF-8'); ?></strong></span>
+				<?php endif; ?>
+				<div class="tree-controls">
+					<button type="button" class="tree-control-btn" id="expand-all-btn">Expand All</button>
+					<button type="button" class="tree-control-btn" id="collapse-all-btn">Collapse All</button>
+				</div>
 			</div>
-			<?php endif; ?>
 		</div>
 		<div class="main">
 			<?php if (empty($tree)) : ?>
@@ -335,6 +372,22 @@
 						}
 					});
 				});
+
+				// Expand all button
+				const expandAllBtn = document.getElementById('expand-all-btn');
+				if (expandAllBtn) {
+					expandAllBtn.addEventListener('click', function() {
+						expandAllFolders();
+					});
+				}
+
+				// Collapse all button
+				const collapseAllBtn = document.getElementById('collapse-all-btn');
+				if (collapseAllBtn) {
+					collapseAllBtn.addEventListener('click', function() {
+						collapseAllFolders();
+					});
+				}
 			}
 
 			/**
@@ -361,6 +414,38 @@
 					children.style.display = 'block';
 					button.classList.add('expanded');
 				}
+			}
+
+			/**
+			 * Expand all folders
+			 */
+			function expandAllFolders() {
+				const allChildren = document.querySelectorAll('.tree-children');
+				const allToggleButtons = document.querySelectorAll('.tree-toggle');
+
+				allChildren.forEach(function(children) {
+					children.style.display = 'block';
+				});
+
+				allToggleButtons.forEach(function(button) {
+					button.classList.add('expanded');
+				});
+			}
+
+			/**
+			 * Collapse all folders
+			 */
+			function collapseAllFolders() {
+				const allChildren = document.querySelectorAll('.tree-children');
+				const allToggleButtons = document.querySelectorAll('.tree-toggle');
+
+				allChildren.forEach(function(children) {
+					children.style.display = 'none';
+				});
+
+				allToggleButtons.forEach(function(button) {
+					button.classList.remove('expanded');
+				});
 			}
 		})();
 	</script>
